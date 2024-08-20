@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Selector</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            color: #fff;
+            text-align: center;
+            transition: background 2s ease-in-out;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: backgroundAnimation 20s infinite alternate;
+        }
+
+        @keyframes focusTheme {
+            0% { background: #000428; }
+            50% { background: #004e92; }
+            100% { background: #000428; }
+        }
+
+        @keyframes relaxTheme {
+            0% { background: linear-gradient(135deg, #a1c4fd 10%, #c2e9fb 100%); }
+            50% { background: linear-gradient(135deg, #a1c4fd 10%, #c2e9fb 100%); }
+            100% { background: linear-gradient(135deg, #a1c4fd 10%, #c2e9fb 100%); }
+        }
+
+        @keyframes sleepTheme {
+            0% { background: #1e3c72; }
+            50% { background: #2a5298; }
+            100% { background: #1e3c72; }
+        }
+
+        @keyframes meditateTheme {
+            0% { background: linear-gradient(135deg, #d4fc79 10%, #96e6a1 100%); }
+            50% { background: linear-gradient(135deg, #c2f76b 10%, #8fe296 100%); }
+            100% { background: linear-gradient(135deg, #d4fc79 10%, #96e6a1 100%); }
+        }
+
+        @keyframes othersTheme {
+            0% { background: linear-gradient(135deg, #ff9a9e 10%, #fecfef 100%); }
+            50% { background: linear-gradient(135deg, #ff9a9e 10%, #fecfef 100%); }
+            100% { background: linear-gradient(135deg, #ff9a9e 10%, #fecfef 100%); }
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .focus-circle { animation: focusTheme 10s infinite; }
+        .relax-circle { animation: relaxTheme 10s infinite; }
+        .sleep-circle { animation: sleepTheme 10s infinite; }
+        .meditate-circle { animation: meditateTheme 10s infinite; }
+        .others-circle { animation: othersTheme 10s infinite; }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .activity-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .activity-button:hover {
+            background-color: #0056b3;
+        }
+
+        #player {
+            margin-top: 40px;
+            width: 560px;
+            height: 315px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            width: 100%;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Select Your Activity</h1>
+    <div class="button-container" id="button-container">
+        <!-- Buttons will be dynamically generated here -->
+    </div>
+
+    <div id="background" class="background"></div>
+
+    <div id="player"></div>
+
+    <footer>
+        This website is dedicated to providing music for focus and concentration. &copy; 2024 focus.riponcs.github.io
+    </footer>
+
+    <script>
+        // Load YouTube IFrame Player API code asynchronously
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Create YouTube player variable
+        var player;
+
+        // This function creates an <iframe> (and YouTube player)
+        // after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: '',
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        // The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            // Do nothing
+        }
+
+        // JSON data embedded in the script
+        const musicCategories = {
+            "categories": [
+                {
+                    "name": "Focus",
+                    "videos": ["UpPmnnJcy6A", "IMerWLNDYxU", "uc_vy0B2Uho", "mehGluCxZNs", "-LIDTKOxvx8", "NGNqNHqH9Nw", "DKPZslKCeiw", "amfWIRasxtI"]
+                },
+                {
+                    "name": "Relax",
+                    "videos": ["UpPmnnJcy6A", "hlWiI4xVXKY", "qycqF1CWcXg", "0CTc6PeCV7E"]
+                },
+                {
+                    "name": "Sleep",
+                    "videos": ["kgk8NiflMs0", "wdUZNebkdbw", "xQ6xgDI7Whc"]
+                },
+                {
+                    "name": "Meditate",
+                    "videos": ["HYiRaSUiw6w", "NSKxvLWqyOY", "0Ni00XDSd6E", ]
+                },
+                {
+                    "name": "Sci-Focus",
+                    "videos": ["1_G60OdEzXs", "FF69wUw2xhU", "1LH5JcJtV94", "lkkGlVWvkLk", "nMfPqeZjc2c"]
+                }
+            ]
+        };
+
+        function initializeButtons(categories) {
+            const buttonContainer = document.getElementById('button-container');
+            const themes = [
+                "focusTheme 20s infinite alternate",
+                "relaxTheme 20s infinite alternate",
+                "sleepTheme 20s infinite alternate",
+                "meditateTheme 20s infinite alternate",
+                "othersTheme 20s infinite alternate"
+            ];
+
+            const circleClasses = [
+                'focus-circle',
+                'relax-circle',
+                'sleep-circle',
+                'meditate-circle',
+                'others-circle'
+            ];
+
+            categories.forEach((category, index) => {
+                const button = document.createElement('button');
+                button.className = 'activity-button';
+                button.innerText = category.name;
+                button.onclick = () => playMusic(category.videos, themes[index], circleClasses[index]);
+                buttonContainer.appendChild(button);
+            });
+        }
+
+        function playMusic(videos, theme, circleClass) {
+            document.body.style.animation = theme;
+            document.getElementById('background').innerHTML = '';
+
+            for (let i = 0; i < 10; i++) {
+                let circle = document.createElement('div');
+                circle.classList.add('circle', circleClass);
+                circle.style.width = `${Math.random() * 200}px`;
+                circle.style.height = circle.style.width;
+                circle.style.top = `${Math.random() * 100}vh`;
+                circle.style.left = `${Math.random() * 100}vw`;
+                document.getElementById('background').appendChild(circle);
+            }
+
+            const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+            player.loadVideoById(randomVideo);
+        }
+
+        // Initialize buttons with the embedded JSON data
+        initializeButtons(musicCategories.categories);
+    </script>
+
+</body>
+</html>
