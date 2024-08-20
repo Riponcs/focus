@@ -125,7 +125,7 @@
     <div id="player"></div>
 
     <footer>
-        This website is dedicated to providing music for focus and concentration. &copy; 2024 focus.riponcs.github.io
+        This website is dedicated to providing music for focus and concentration. &copy; <span id="year"></span> riponcs.github.io/focus
     </footer>
 
     <script>
@@ -229,6 +229,7 @@
 
         // Initialize buttons with the embedded JSON data
         initializeButtons(musicCategories.categories);
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
 </body>
