@@ -115,14 +115,14 @@
 </head>
 <body>
 
-    <h1>Select Your Activity</h1>
+    <h1 id="activity-title" style="color: #007bff;">Pick a Music Category</h1>
     <div class="button-container" id="button-container">
         <!-- Buttons will be dynamically generated here -->
     </div>
 
     <div id="background" class="background"></div>
 
-    <div id="player"></div>
+    <div id="player" style="display: none;"></div>
 
     <footer>
         This website is dedicated to providing music for focus and concentration. &copy; <span id="year"></span> riponcs.github.io/focus
@@ -210,6 +210,10 @@
         }
 
         function playMusic(videos, theme, circleClass) {
+            // Show the player and revert text color
+            document.getElementById('player').style.display = 'block';
+            document.getElementById('activity-title').style.color = '';
+
             document.body.style.animation = theme;
             document.getElementById('background').innerHTML = '';
 
@@ -227,8 +231,15 @@
             player.loadVideoById(randomVideo);
         }
 
+        // Ensure the player is hidden on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('player').style.display = 'none';
+        });
+
         // Initialize buttons with the embedded JSON data
         initializeButtons(musicCategories.categories);
+
+        // Display current year
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
