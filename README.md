@@ -1,4 +1,5 @@
 # Focus Music Selector
+![Focus Music Website Snapshot](Focus_Music_website_snapshot.png)
 
 A dynamic and interactive web application designed to help you find the perfect music for enhancing your focus, relaxation, sleep, meditation, or sci-fi inspired concentration. This tool features curated playlists tailored to different activities, allowing you to seamlessly switch between music categories that best suit your needs.
 
